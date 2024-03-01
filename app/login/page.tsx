@@ -47,11 +47,9 @@ export default function Page() {
     return (
     <div className="mx-auto p-2 mt-3" style={{maxWidth: 500}}>
         <h1>Log In</h1>
-        
         <div className="alert alert-danger mt-3" hidden={state?.message.length === 0} role="alert">
             {state?.message}
         </div>
-
         <form className="my-3" action={formAction}>
             <div className="mb-3">
                 <label className="form-label">Username or Email</label>
