@@ -172,7 +172,7 @@ export default function Page() {
     }
 
     return (
-    <div className="mx-auto p-2 mt-3" style={{maxWidth: 500}}>
+    <div className="mx-auto p-2 mt-4" style={{maxWidth: 500}}>
         <h1>Sign Up</h1>
         <div className="alert alert-danger mt-3" hidden={state?.message.length === 0} role="alert">
             {state?.message}

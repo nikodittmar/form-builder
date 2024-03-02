@@ -27,7 +27,7 @@ export async function login(prevState: any, formData: FormData) {
             path: '/',
         })
         
-        redirect('/')
+        redirect('/account')
     } else {
         if (response.status == 401) {
             return {
