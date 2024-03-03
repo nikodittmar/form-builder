@@ -35,12 +35,12 @@ export default async function Page() {
     }
 
     const formList = forms.map( (form: any) =>
-        <div className="card">
+        <div className="card mb-3">
             <div className="card-body d-flex">
                 <div>
                 {form.name}
                 </div>
-                <Link className="ms-auto" href="">Edit Form</Link>
+                <Link className="ms-auto" href={`/forms/${form.id}`}>Edit Form</Link>
             </div>
         </div>
     )

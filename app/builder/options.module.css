@@ -1,0 +1,16 @@
+.sidebar {
+    height: 100%;
+    padding-left: 14px;
+    padding-right: 14px;
+    width: var(--sidebar-width);
+    background-color: var(--secondary-bg-color);
+    overflow: scroll;
+    border-left: var(--border);
+}
+.title {
+    margin-top: 14px;
+    margin-bottom: 14px;
+    font-size: 1rem;
+    color: var(--secondary-text-color);
+    font-weight: 400;
+}

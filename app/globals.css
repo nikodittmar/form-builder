@@ -1,0 +1,8 @@
+:root {
+  --bg-color: #f7f7f7;
+  --secondary-bg-color: white;
+  --border: 1px solid #E0E0E0;
+  --sidebar-width: 280px;
+  --nav-height: 64px;
+  --secondary-text-color: #848484;
+}
