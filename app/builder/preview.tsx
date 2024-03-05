@@ -43,12 +43,12 @@ export default function Preview(props: {
                 {
                     props.components.map( component => (
                         <div onClick={() => selectComponent(component)}>
-                        {component.preview({selected: component.id === props.selectedId, isDragging: false})}
+                        {component.preview({selected: component.id === props.selectedId, isDragging: false, component: component})}
                         </div>
                     ))
                 }
                 <div className={styles.submit_container}>
-                    <button className="btn btn-primary">Submit</button>
+                    <div className="btn btn-primary">Submit</div>
                 </div>
             </div>
         </div>

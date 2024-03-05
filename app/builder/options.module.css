@@ -14,3 +14,23 @@
     color: var(--secondary-text-color);
     font-weight: 400;
 }
+
+.container {
+    margin-bottom: 10px;
+}
+
+.label {
+    font-size: 14px;
+}
+
+.check_option_container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.check_option {
+    margin-top: 0;
+    margin-right: 8px;
+}

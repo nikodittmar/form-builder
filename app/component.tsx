@@ -1,7 +1,7 @@
 import { v4 as uuidv4} from 'uuid'
 import styles from './component.module.css'
 
-enum ComponentType {
+export enum ComponentType {
     TextField = "text-field",
     TextArea = "text-area",
     EmailAddress = "email-address",
@@ -16,7 +16,7 @@ export default interface Component {
     name: string
     required: boolean
     type: ComponentType
-    preview: (props: { selected: boolean, isDragging: boolean}) => JSX.Element
+    preview: (props: { selected: boolean, isDragging: boolean, component: any}) => JSX.Element
 }
 
 class TextComponent {
@@ -37,11 +37,11 @@ class TextComponent {
 
 export class TextField extends TextComponent implements Component {
     type = ComponentType.TextField
-    preview = (props: { selected: boolean, isDragging: boolean}) => (
+    preview = (props: { component: TextField, selected: boolean, isDragging: boolean }) => (
         <div className={`${styles.component} ${props.selected && styles.selected} ${props.isDragging && styles.front}`} onClick={() => {console.log("clocked")}}>
-            <label className="form-label">{ this.name }{ this.required && <span className={styles.required}>*</span>}</label>
-            <div className={`form-control ${styles.text_field}`}>{ this.placeholder }</div>
-            <div className="form-text">{ this.helper }</div>
+            <label className="form-label">{ props.component.name }{ props.component.required && <span className={styles.required}>*</span>}</label>
+            <div className={`form-control ${styles.text_field}`}>{ props.component.placeholder }</div>
+            <div className="form-text">{ props.component.helper }</div>
         </div>
     )
 
@@ -52,11 +52,11 @@ export class TextField extends TextComponent implements Component {
 
 export class TextArea extends TextComponent implements Component {
     type = ComponentType.TextArea
-    preview = (props: { selected: boolean, isDragging: boolean}) => (
+    preview = (props: { component: TextArea, selected: boolean, isDragging: boolean }) => (
         <div className={`${styles.component} ${props.selected && styles.selected} ${props.isDragging && styles.front}`}>
-            <label className="form-label">{ this.name }{ this.required && <span className={styles.required}>*</span>}</label>
-            <div className={`form-control ${styles.text_area}`}>{ this.placeholder }</div>
-            <div className="form-text">{ this.helper }</div>
+            <label className="form-label">{ props.component.name }{ props.component.required && <span className={styles.required}>*</span>}</label>
+            <div className={`form-control ${styles.text_area}`}>{ props.component.placeholder }</div>
+            <div className="form-text">{ props.component.helper }</div>
         </div>
     )
 
@@ -67,11 +67,11 @@ export class TextArea extends TextComponent implements Component {
 
 export class EmailAddress extends TextComponent implements Component {
     type = ComponentType.EmailAddress
-    preview = (props: { selected: boolean, isDragging: boolean}) => (
+    preview = (props: { component: EmailAddress, selected: boolean, isDragging: boolean }) => (
         <div className={`${styles.component} ${props.selected && styles.selected} ${props.isDragging && styles.front}`}>
-            <label className="form-label">{ this.name }{ this.required && <span className={styles.required}>*</span>}</label>
-            <div className={`form-control ${styles.text_field}`}>{ this.placeholder }</div>
-            <div className="form-text">{ this.helper }</div>
+            <label className="form-label">{ props.component.name }{ props.component.required && <span className={styles.required}>*</span>}</label>
+            <div className={`form-control ${styles.text_field}`}>{ props.component.placeholder }</div>
+            <div className="form-text">{ props.component.helper }</div>
         </div>
     )
 
@@ -82,11 +82,11 @@ export class EmailAddress extends TextComponent implements Component {
 
 export class PhoneNumber extends TextComponent implements Component {
     type = ComponentType.PhoneNumber
-    preview = (props: { selected: boolean, isDragging: boolean}) => (
+    preview = (props: { component: PhoneNumber, selected: boolean, isDragging: boolean}) => (
         <div className={`${styles.component} ${props.selected && styles.selected} ${props.isDragging && styles.front}`}>
-            <label className="form-label">{ this.name }{ this.required && <span className={styles.required}>*</span>}</label>
-            <div className={`form-control ${styles.text_field}`}>{ this.placeholder }</div>
-            <div className="form-text">{ this.helper }</div>
+            <label className="form-label">{ props.component.name }{ props.component.required && <span className={styles.required}>*</span>}</label>
+            <div className={`form-control ${styles.text_field}`}>{ props.component.placeholder }</div>
+            <div className="form-text">{ props.component.helper }</div>
         </div>
     )
 
@@ -99,11 +99,11 @@ export class NumberPicker extends TextComponent implements Component {
     type = ComponentType.NumberPicker
     minValue?: number
     maxValue?: number
-    preview = (props: { selected: boolean, isDragging: boolean}) => (
+    preview = (props: { component: NumberPicker, selected: boolean, isDragging: boolean}) => (
         <div className={`${styles.component} ${props.selected && styles.selected} ${props.isDragging && styles.front}`}>
-            <label className="form-label">{ this.name }{ this.required && <span className={styles.required}>*</span>}</label>
-            <div className={`form-control ${styles.text_field}`}>{ this.placeholder }</div>
-            <div className="form-text">{ this.helper }</div>
+            <label className="form-label">{ props.component.name }{ props.component.required && <span className={styles.required}>*</span>}</label>
+            <div className={`form-control ${styles.text_field}`}>{ props.component.placeholder }</div>
+            <div className="form-text">{ props.component.helper }</div>
         </div>
     )
 
@@ -142,11 +142,11 @@ class ChoiceComponent {
 
 export class Checkboxes extends ChoiceComponent implements Component {
     type = ComponentType.Checkboxes
-    preview = (props: { selected: boolean, isDragging: boolean}) => (
+    preview = (props: { component: Checkboxes, selected: boolean, isDragging: boolean}) => (
         <div className={`${styles.component} ${props.selected && styles.selected} ${props.isDragging && styles.front}`}>
-            <label className="form-label">{ this.name }{ this.required && <span className={styles.required}>*</span>}</label>
+            <label className="form-label">{ props.component.name }{ props.component.required && <span className={styles.required}>*</span>}</label>
             {
-                this.options.map(option => {
+                props.component.options.map(option => {
                     return (
                         <div className="form-check" key={option.id}>
                             <input className={`form-check-input ${styles.hidden_disabled_text}`} type="checkbox" value="" disabled/>
@@ -155,7 +155,7 @@ export class Checkboxes extends ChoiceComponent implements Component {
                     )
                 })
             }
-            <div className="form-text">{ this.helper }</div>
+            <div className="form-text">{ props.component.helper }</div>
         </div>
     )
 
@@ -166,11 +166,11 @@ export class Checkboxes extends ChoiceComponent implements Component {
 
 export class RadioButtons extends ChoiceComponent implements Component {
     type = ComponentType.RadioButtons
-    preview = (props: { selected: boolean, isDragging: boolean}) => (
+    preview = (props: { component: RadioButtons, selected: boolean, isDragging: boolean}) => (
         <div className={`${styles.component} ${props.selected && styles.selected} ${props.isDragging && styles.front}`}>
-            <label className="form-label">{ this.name }{ this.required && <span className={styles.required}>*</span>}</label>
+            <label className="form-label">{ props.component.name }{ props.component.required && <span className={styles.required}>*</span>}</label>
             {
-                this.options.map(option => {
+                props.component.options.map(option => {
                     return (
                         <div className="form-check" key={option.id}>
                             <input className={`form-check-input ${styles.hidden_disabled_text}`} type="radio" disabled />
@@ -179,7 +179,7 @@ export class RadioButtons extends ChoiceComponent implements Component {
                     )
                 })
             }
-            <div className="form-text">{ this.helper }</div>
+            <div className="form-text">{ props.component.helper }</div>
         </div>
     )
 
