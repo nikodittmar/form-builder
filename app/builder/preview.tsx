@@ -1,5 +1,7 @@
 import Component from '@/app/component'
 import styles from './preview.module.css'
+import ComponentPicker from './component-picker'
+import { ComponentPreview } from './component-preview'
 
 export default function Preview(props: { 
     components: Component[], 
@@ -43,7 +45,7 @@ export default function Preview(props: {
                 {
                     props.components.map( component => (
                         <div onClick={() => selectComponent(component)}>
-                        {component.preview({selected: component.id === props.selectedId, isDragging: false, component: component})}
+                            <ComponentPreview component={component} selected={component.id === props.selectedId} isDragging={false}/>
                         </div>
                     ))
                 }
