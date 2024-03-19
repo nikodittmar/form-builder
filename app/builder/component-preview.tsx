@@ -54,11 +54,11 @@ export function ComponentPreview(props: { component: Component, selected: boolea
         <div className={`${styles.component} ${props.selected && styles.selected} ${props.isDragging && styles.front}`}>
             <label className="form-label">{ component.name }{ component.required && <span className={styles.required}>*</span>}</label>
             {
-                component.options.map(option => {
+                component.choices.map(choice => {
                     return (
-                        <div className="form-check" key={option.id}>
+                        <div className="form-check" key={choice.id}>
                             <input className={`form-check-input ${styles.hidden_disabled_text}`} type="checkbox" value="" disabled/>
-                            <label className={`form-check-label ${styles.hidden_disabled_text}`}>{option.name}</label>
+                            <label className={`form-check-label ${styles.hidden_disabled_text}`}>{choice.name}</label>
                         </div>
                     )
                 })
@@ -72,11 +72,11 @@ export function ComponentPreview(props: { component: Component, selected: boolea
         <div className={`${styles.component} ${props.selected && styles.selected} ${props.isDragging && styles.front}`}>
             <label className="form-label">{ component.name }{ component.required && <span className={styles.required}>*</span>}</label>
             {
-                component.options.map(option => {
+                component.choices.map(choice => {
                     return (
-                        <div className="form-check" key={option.id}>
+                        <div className="form-check" key={choice.id}>
                             <input className={`form-check-input ${styles.hidden_disabled_text}`} type="radio" disabled />
-                            <label className={`form-check-label ${styles.hidden_disabled_text}`}>{option.name}</label>
+                            <label className={`form-check-label ${styles.hidden_disabled_text}`}>{choice.name}</label>
                         </div>
                     )
                 })

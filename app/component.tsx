@@ -77,7 +77,7 @@ export class NumberPicker extends TextComponent implements Component {
     }
 }
 
-export class Option {
+export class Choice {
     id: string
     name: string
 
@@ -92,29 +92,29 @@ class ChoiceComponent {
     name: string
     required: boolean
     helper: string
-    options: Option[]
+    choices: Choice[]
 
-    constructor(id: string, name: string, required: boolean, helper: string, options: Option[]) {
+    constructor(id: string, name: string, required: boolean, helper: string, choices: Choice[]) {
         this.id = id
         this.name = name
         this.required = required
         this.helper = helper
-        this.options = options
+        this.choices = choices
     }
 }
 
 export class Checkboxes extends ChoiceComponent implements Component {
     readonly type = ComponentType.Checkboxes
     
-    constructor(id: string = uuidv4(), name: string = 'Checkboxes', required: boolean = false, helper: string = '', options: Option[] = [new Option(uuidv4(), "Option")]) { 
-        super(id, name, required, helper, options)
+    constructor(id: string = uuidv4(), name: string = 'Checkboxes', required: boolean = false, helper: string = '', choices: Choice[] = [new Choice(uuidv4(), "Option")]) { 
+        super(id, name, required, helper, choices)
     }
 }
 
 export class RadioButtons extends ChoiceComponent implements Component {
     readonly type = ComponentType.RadioButtons
     
-    constructor(id: string = uuidv4(), name: string = 'Radio Buttons', required: boolean = false, helper: string = '', options: Option[] = [new Option(uuidv4(), "Option")]) { 
-        super(id, name, required, helper, options)
+    constructor(id: string = uuidv4(), name: string = 'Radio Buttons', required: boolean = false, helper: string = '', choices: Choice[] = [new Choice(uuidv4(), "Option")]) { 
+        super(id, name, required, helper, choices)
     }
 }
