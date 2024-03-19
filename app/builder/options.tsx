@@ -4,7 +4,11 @@ import styles from './options.module.css'
 export default function Options(props: { 
     components: Component[],
     setComponents: (components: Component[]) => void, 
-    selectedId: string | null 
+    selectedId: string | null,
+    displayTitle: string,
+    setDisplayTitle: (displayTitle: string) => void
+    description: string,
+    setDescription: (description: string) => void
 }) {
 
     let selectedIndex: number | null = null
@@ -22,7 +26,12 @@ export default function Options(props: {
             selectedIndex: selectedIndex
         })
     } else {
-        return FormOptions()
+        return FormOptions({
+            displayTitle: props.displayTitle,
+            setDisplayTitle: props.setDisplayTitle,
+            description: props.description,
+            setDescription: props.setDescription,
+        })
     }
 }
 
@@ -136,10 +145,33 @@ function ComponentOptions(props: {
     )
 }
 
-function FormOptions() {
+function FormOptions(props: {
+    displayTitle: string, 
+    setDisplayTitle: (displayTitle: string) => void 
+    description: string,
+    setDescription: (description: string) => void 
+}) {
     return (
         <div className={styles.sidebar}>
             <h3 className={styles.title}>Form Options</h3>
+            <div className={styles.container}>
+                <label className={styles.label}>Display Title</label>
+                <input 
+                className="form-control form-control-sm" 
+                type="text" 
+                value={props.displayTitle} 
+                onChange={(event) => { props.setDisplayTitle(event.target.value) }}
+                />
+            </div>
+            <div className={styles.container}>
+                <label className={styles.label}>Description</label>
+                <textarea 
+                className="form-control form-control-sm" 
+                rows={3}
+                value={props.description} 
+                onChange={(event) => { props.setDescription(event.target.value ) }}
+                />
+            </div>
         </div>
     )
 }

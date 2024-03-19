@@ -34,7 +34,7 @@ class TextComponent {
 }
 
 export class TextField extends TextComponent implements Component {
-    type = ComponentType.TextField
+    readonly type = ComponentType.TextField
 
     constructor(id: string = uuidv4(), name: string = 'Text Field', required: boolean = false, helper: string = '', placeholder: string = '') {
         super(id, name, required, helper, placeholder)
@@ -42,7 +42,7 @@ export class TextField extends TextComponent implements Component {
 }
 
 export class TextArea extends TextComponent implements Component {
-    type = ComponentType.TextArea
+    readonly type = ComponentType.TextArea
 
     constructor(id: string = uuidv4(), name: string = 'Text Area', required: boolean = false, helper: string = '', placeholder: string = '') {
         super(id, name, required, helper, placeholder)
@@ -50,7 +50,7 @@ export class TextArea extends TextComponent implements Component {
 }
 
 export class EmailAddress extends TextComponent implements Component {
-    type = ComponentType.EmailAddress
+    readonly type = ComponentType.EmailAddress
 
     constructor(id: string = uuidv4(), name: string = 'Email Address', required: boolean = false, helper: string = '', placeholder: string = '') {
         super(id, name, required, helper, placeholder)
@@ -58,7 +58,7 @@ export class EmailAddress extends TextComponent implements Component {
 }
 
 export class PhoneNumber extends TextComponent implements Component {
-    type = ComponentType.PhoneNumber
+    readonly type = ComponentType.PhoneNumber
 
     constructor(id: string = uuidv4(), name: string = 'Phone Number', required: boolean = false, helper: string = '', placeholder: string = '') {
         super(id, name, required, helper, placeholder)
@@ -66,7 +66,7 @@ export class PhoneNumber extends TextComponent implements Component {
 }
 
 export class NumberPicker extends TextComponent implements Component {
-    type = ComponentType.NumberPicker
+    readonly type = ComponentType.NumberPicker
     minValue?: number
     maxValue?: number
 
@@ -104,7 +104,7 @@ class ChoiceComponent {
 }
 
 export class Checkboxes extends ChoiceComponent implements Component {
-    type = ComponentType.Checkboxes
+    readonly type = ComponentType.Checkboxes
     
     constructor(id: string = uuidv4(), name: string = 'Checkboxes', required: boolean = false, helper: string = '', options: Option[] = [new Option(uuidv4(), "Option")]) { 
         super(id, name, required, helper, options)
@@ -112,7 +112,7 @@ export class Checkboxes extends ChoiceComponent implements Component {
 }
 
 export class RadioButtons extends ChoiceComponent implements Component {
-    type = ComponentType.RadioButtons
+    readonly type = ComponentType.RadioButtons
     
     constructor(id: string = uuidv4(), name: string = 'Radio Buttons', required: boolean = false, helper: string = '', options: Option[] = [new Option(uuidv4(), "Option")]) { 
         super(id, name, required, helper, options)

@@ -34,6 +34,10 @@ export default function Page() {
             components={components}
             setComponents={setComponents}
             selectedId={selectedId}
+            displayTitle={displayTitle}
+            setDisplayTitle={setDisplayTitle}
+            description={description}
+            setDescription={setDescription}
             />
         </div>
     </div>

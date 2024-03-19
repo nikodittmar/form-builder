@@ -10,7 +10,8 @@ export default function Preview(props: {
     description: string
 }) {
 
-    const selectComponent = (component: Component) => {
+    const selectComponent = (event: React.MouseEvent<HTMLDivElement>, component: Component) => {
+        event.stopPropagation()
         if (props.selectedId === component.id) {
             props.setSelectedId(null)
         } else {
@@ -19,7 +20,7 @@ export default function Preview(props: {
     }
 
     return (
-        <div className={styles.preview_container}>
+        <div onClick={() => props.setSelectedId(null)} className={styles.preview_container}>
             <div className={styles.preview}>
                 <div className={styles.title_description_container}>
                 {
@@ -43,7 +44,7 @@ export default function Preview(props: {
                 }
                 {
                     props.components.map( component => (
-                        <div onClick={() => selectComponent(component)}>
+                        <div onClick={(event: React.MouseEvent<HTMLDivElement>) => selectComponent(event, component)}>
                             <ComponentPreview component={component} selected={component.id === props.selectedId} isDragging={false}/>
                         </div>
                     ))
