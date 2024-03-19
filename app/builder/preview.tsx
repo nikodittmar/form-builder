@@ -1,6 +1,5 @@
 import Component from '@/app/component'
 import styles from './preview.module.css'
-import ComponentPicker from './component-picker'
 import { ComponentPreview } from './component-preview'
 
 export default function Preview(props: { 

@@ -1,54 +1,60 @@
-import Component, { Checkboxes, EmailAddress, NumberPicker, PhoneNumber, RadioButtons, TextArea, TextField } from "../component"
+import Component, { Checkboxes, ComponentType, EmailAddress, NumberPicker, PhoneNumber, RadioButtons, TextArea, TextField } from "../component"
 import styles from "./component-preview.module.css"
 
 export function ComponentPreview(props: { component: Component, selected: boolean, isDragging: boolean }) {
-    if (props.component instanceof TextField) {
+    if (props.component.type === ComponentType.TextField) {
+        const component = props.component as TextField
         return (
         <div className={`${styles.component} ${props.selected && styles.selected} ${props.isDragging && styles.front}`} onClick={() => {console.log("clocked")}}>
-            <label className="form-label">{ props.component.name }{ props.component.required && <span className={styles.required}>*</span>}</label>
-            <div className={`form-control ${styles.text_field}`}>{ props.component.placeholder }</div>
-            <div className="form-text">{ props.component.helper }</div>
+            <label className="form-label">{ component.name }{ component.required && <span className={styles.required}>*</span>}</label>
+            <div className={`form-control ${styles.text_field}`}>{ component.placeholder }</div>
+            <div className="form-text">{ component.helper }</div>
         </div>
         )
-    } else if (props.component instanceof TextArea) {
+    } else if (props.component.type === ComponentType.TextArea) {
+        const component = props.component as TextArea
         return (
         <div className={`${styles.component} ${props.selected && styles.selected} ${props.isDragging && styles.front}`}>
-            <label className="form-label">{ props.component.name }{ props.component.required && <span className={styles.required}>*</span>}</label>
-            <div className={`form-control ${styles.text_area}`}>{ props.component.placeholder }</div>
-            <div className="form-text">{ props.component.helper }</div>
+            <label className="form-label">{ component.name }{ component.required && <span className={styles.required}>*</span>}</label>
+            <div className={`form-control ${styles.text_area}`}>{ component.placeholder }</div>
+            <div className="form-text">{ component.helper }</div>
         </div>
         )
-    } else if (props.component instanceof EmailAddress) {
+    } else if (props.component.type === ComponentType.EmailAddress) {
+        const component = props.component as EmailAddress
         return (
         <div className={`${styles.component} ${props.selected && styles.selected} ${props.isDragging && styles.front}`}>
-            <label className="form-label">{ props.component.name }{ props.component.required && <span className={styles.required}>*</span>}</label>
-            <div className={`form-control ${styles.text_field}`}>{ props.component.placeholder }</div>
-            <div className="form-text">{ props.component.helper }</div>
+            <label className="form-label">{ component.name }{ component.required && <span className={styles.required}>*</span>}</label>
+            <div className={`form-control ${styles.text_field}`}>{ component.placeholder }</div>
+            <div className="form-text">{ component.helper }</div>
         </div>
         )
-    } else if (props.component instanceof PhoneNumber) {
+    } else if (props.component.type === ComponentType.PhoneNumber) {
+        const component = props.component as PhoneNumber
         return (
         <div className={`${styles.component} ${props.selected && styles.selected} ${props.isDragging && styles.front}`}>
-            <label className="form-label">{ props.component.name }{ props.component.required && <span className={styles.required}>*</span>}</label>
-            <div className={`form-control ${styles.text_field}`}>{ props.component.placeholder }</div>
-            <div className="form-text">{ props.component.helper }</div>
+            <label className="form-label">{ component.name }{ component.required && <span className={styles.required}>*</span>}</label>
+            <div className={`form-control ${styles.text_field}`}>{ component.placeholder }</div>
+            <div className="form-text">{ component.helper }</div>
         </div>
         )
 
-    } else if (props.component instanceof NumberPicker) {
+    } else if (props.component.type === ComponentType.NumberPicker) {
+        const component = props.component as NumberPicker
         return (
         <div className={`${styles.component} ${props.selected && styles.selected} ${props.isDragging && styles.front}`}>
-            <label className="form-label">{ props.component.name }{ props.component.required && <span className={styles.required}>*</span>}</label>
-            <div className={`form-control ${styles.text_field}`}>{ props.component.placeholder }</div>
-            <div className="form-text">{ props.component.helper }</div>
+            <label className="form-label">{ component.name }{ component.required && <span className={styles.required}>*</span>}</label>
+            <div className={`form-control ${styles.text_field}`}>{ component.placeholder }</div>
+            <div className="form-text">{ component.helper }</div>
         </div>
         )
-    } else if (props.component instanceof Checkboxes) {
+    } else if (props.component.type === ComponentType.Checkboxes) {
+        const component = props.component as Checkboxes
         return (
         <div className={`${styles.component} ${props.selected && styles.selected} ${props.isDragging && styles.front}`}>
-            <label className="form-label">{ props.component.name }{ props.component.required && <span className={styles.required}>*</span>}</label>
+            <label className="form-label">{ component.name }{ component.required && <span className={styles.required}>*</span>}</label>
             {
-                props.component.options.map(option => {
+                component.options.map(option => {
                     return (
                         <div className="form-check" key={option.id}>
                             <input className={`form-check-input ${styles.hidden_disabled_text}`} type="checkbox" value="" disabled/>
@@ -57,15 +63,16 @@ export function ComponentPreview(props: { component: Component, selected: boolea
                     )
                 })
             }
-            <div className="form-text">{ props.component.helper }</div>
+            <div className="form-text">{ component.helper }</div>
         </div>
         )
-    } else if (props.component instanceof RadioButtons) {
+    } else if (props.component.type === ComponentType.RadioButtons) {
+        const component = props.component as RadioButtons
         return (
         <div className={`${styles.component} ${props.selected && styles.selected} ${props.isDragging && styles.front}`}>
-            <label className="form-label">{ props.component.name }{ props.component.required && <span className={styles.required}>*</span>}</label>
+            <label className="form-label">{ component.name }{ component.required && <span className={styles.required}>*</span>}</label>
             {
-                props.component.options.map(option => {
+                component.options.map(option => {
                     return (
                         <div className="form-check" key={option.id}>
                             <input className={`form-check-input ${styles.hidden_disabled_text}`} type="radio" disabled />
@@ -74,7 +81,7 @@ export function ComponentPreview(props: { component: Component, selected: boolea
                     )
                 })
             }
-            <div className="form-text">{ props.component.helper }</div>
+            <div className="form-text">{ component.helper }</div>
         </div>
         )
     }

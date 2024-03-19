@@ -33,19 +33,13 @@ function ComponentOptions(props: {
  }) {
 
     const updateProperty = (property: string, newValue: any) => {
+        if (!hasProperty(property)) {
+            return
+        }
+
         const components = [...props.components]
-
-        console.log(newValue)
-
-        if (props.selectedIndex < 0 || props.selectedIndex >= components.length) {
-            return
-        }
         let component = props.components[props.selectedIndex]
-
-        if (!Object.hasOwn(component, property)) {
-            return
-        }
-
+       
         if (typeof component[property as keyof typeof component] != typeof newValue) {
             return
         }
@@ -55,7 +49,7 @@ function ComponentOptions(props: {
         props.setComponents(components)
     }
 
-    const hasOption = (property: string): boolean => {
+    const hasProperty = (property: string): boolean => {
         if (props.selectedIndex < 0 || props.selectedIndex >= props.components.length) {
             return false
         }
@@ -64,40 +58,28 @@ function ComponentOptions(props: {
     }
 
     const getString = (property: string): string => {
-        if (props.selectedIndex < 0 || props.selectedIndex >= props.components.length) {
+        if (!hasProperty(property)) {
             return ''
         }
-        let component = props.components[props.selectedIndex]
 
-        if (Object.hasOwn(component, property)) {
-            return String(component[property as keyof typeof component])
-        } else {
-            return ''
-        }
+        let component = props.components[props.selectedIndex]
+        return String(component[property as keyof typeof component])
     }
 
     const getBoolean = (property: string): boolean => {
-        if (props.selectedIndex < 0 || props.selectedIndex >= props.components.length) {
+        if (!hasProperty(property)) {
             return false
         }
+
         let component = props.components[props.selectedIndex]
-
-        if (!Object.hasOwn(component, property)) {
-           return false
-        } 
-
-        if (component[property as keyof typeof component] === true) {
-            return true
-        } else {
-            return false
-        }
+        return component[property as keyof typeof component] === true
     }   
     
     return (
         <div className={styles.sidebar}>
             <h3 className={styles.title}>Component Options</h3>
             {
-                hasOption('name') && (
+                hasProperty('name') && (
                     <div className={styles.container}>
                         <label className={styles.label}>Label</label>
                         <input 
@@ -110,7 +92,7 @@ function ComponentOptions(props: {
                 )
             }
             {
-                hasOption('placeholder') && (
+                hasProperty('placeholder') && (
                     <div className={styles.container}>
                         <label className={styles.label}>Placeholder</label>
                         <input 
@@ -123,7 +105,7 @@ function ComponentOptions(props: {
                 )
             }
             {
-                hasOption('helper') && (
+                hasProperty('helper') && (
                     <div className={styles.container}>
                         <label className={styles.label}>Helper</label>
                         <textarea 
@@ -136,7 +118,7 @@ function ComponentOptions(props: {
                 )
             }
             {
-                hasOption('required') && (
+                hasProperty('required') && (
                     <div className={styles.container}>
                         <div className={styles.check_option_container}>
                             <input 
