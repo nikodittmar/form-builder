@@ -44,7 +44,7 @@ export default function Preview(props: {
                 }
                 {
                     props.components.map( component => (
-                        <div onClick={(event: React.MouseEvent<HTMLDivElement>) => selectComponent(event, component)}>
+                        <div onClick={(event: React.MouseEvent<HTMLDivElement>) => selectComponent(event, component)} key={component.id}>
                             <ComponentPreview component={component} selected={component.id === props.selectedId} isDragging={false}/>
                         </div>
                     ))
