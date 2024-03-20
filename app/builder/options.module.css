@@ -38,14 +38,15 @@
 .add_option {
     font-size: 13px;
     text-decoration: none;
+    margin-bottom: 0px;
+    cursor: pointer;
+    
 }
+
 .label_add_container {
     display: flex;
     align-items: center;
     justify-content: space-between;
-}
-.add_option_container {
-    margin-bottom: 0px;
 }
 
 .list_item {
@@ -54,15 +55,28 @@
     margin-bottom: 10px;
     margin-top: 5px;
 }
+
 .front {
     position: relative;
     z-index: 100;
 }
+
 .delete {
     margin-right: 10px;
     display: flex;
     align-items: center;
+    cursor: pointer;
 }
+
 .drag_handle {
     margin-left: 4px;
+    
+}
+
+.dragging_cursor {
+    cursor: grabbing;
+}
+
+.hover_cursor {
+    cursor: grab;
 }

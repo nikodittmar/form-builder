@@ -38,6 +38,7 @@ export default function Page() {
             setDisplayTitle={setDisplayTitle}
             description={description}
             setDescription={setDescription}
+            setSelectedId={setSelectedId}
             />
         </div>
     </div>

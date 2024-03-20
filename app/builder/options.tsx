@@ -11,6 +11,7 @@ export default function Options(props: {
     components: Component[],
     setComponents: (components: Component[]) => void, 
     selectedId: string | null,
+    setSelectedId: (id: string | null) => void,
     displayTitle: string,
     setDisplayTitle: (displayTitle: string) => void
     description: string,
@@ -29,7 +30,8 @@ export default function Options(props: {
         return ComponentOptions({ 
             components: props.components, 
             setComponents: props.setComponents, 
-            selectedIndex: selectedIndex
+            selectedIndex: selectedIndex,
+            setSelectedId: props.setSelectedId
         })
     } else {
         return FormOptions({
@@ -44,7 +46,8 @@ export default function Options(props: {
 function ComponentOptions(props: { 
     components: Component[], 
     setComponents: (components: Component[]) => void, 
-    selectedIndex: number
+    selectedIndex: number,
+    setSelectedId: (id: string | null) => void,
  }) {
 
     const updateProperty = (property: string, newValue: any) => {
@@ -141,6 +144,13 @@ function ComponentOptions(props: {
     const canDelete = (): boolean => {
         return getChoices().length > 1
     }
+
+    const deleteComponent = () => {
+        const components = [...props.components]
+        components.splice(props.selectedIndex, 1)
+        props.setComponents(components)
+        props.setSelectedId(null)
+    }
     
     return (
         <div className={styles.sidebar}>
@@ -189,7 +199,7 @@ function ComponentOptions(props: {
                     <div className={styles.container}>
                         <div className={styles.label_add_container}>
                             <label className={styles.label}>Choices</label>
-                            <p className={styles.add_option_container}><a onClick={addChoice} className={`link-underline-primary ${styles.add_option}`}>Add Option</a></p>
+                            <p className={`text-primary ${styles.add_option}`} onClick={addChoice}>Add Option</p>
                         </div>
                         <DndContext 
                         collisionDetection={closestCenter} 
@@ -230,6 +240,7 @@ function ComponentOptions(props: {
                     </div>
                 )
             }
+            <button onClick={deleteComponent} type="button" className="btn btn-danger btn-sm mt-4">Delete Component</button>
         </div>
     )
 }
@@ -261,7 +272,7 @@ function ChoicesListItem(props: {
             <FiMinusCircle color={(props.canDelete) ? 'red' : 'var(--secondary-text-color)' }/> 
         </div>
         <input className="form-control form-control-sm" onChange={(event) => props.setChoiceName(event.target.value)} type="text" value={props.choice} />
-        <div className={styles.drag_handle}  {...attributes} {...listeners}>
+        <div className={`${styles.drag_handle} ${isDragging ? styles.dragging_cursor : styles.hover_cursor}`}  {...attributes} {...listeners}>
             <MdOutlineDragIndicator color="var(--secondary-text-color)"/>
         </div>
     </div>
