@@ -1,7 +1,28 @@
 import Component, { Checkboxes, ComponentType, EmailAddress, NumberPicker, PhoneNumber, RadioButtons, TextArea, TextField } from "../component"
 import styles from "./component-preview.module.css"
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 
-export function ComponentPreview(props: { component: Component, selected: boolean, isDragging: boolean }) {
+export function ComponentPreview(props: { component: Component, selected: boolean, onClick: () => void }) {
+
+    const onClick = (event: React.MouseEvent<HTMLDivElement>) => {
+        event.stopPropagation();
+        props.onClick()
+    }
+
+    const {
+        attributes,
+        listeners,
+        setNodeRef,
+        isDragging,
+        transform,
+        transition,
+    } = useSortable({id: props.component.id})
+ 
+    const style = {
+        transform: CSS.Translate.toString(transform),
+        transition
+    }
 
     let preview: React.ReactNode
 
@@ -90,7 +111,14 @@ export function ComponentPreview(props: { component: Component, selected: boolea
     }
 
     return (
-        <div className={`${styles.component} ${props.selected && styles.selected} ${props.isDragging && styles.front}`}>
+        <div 
+        onClick={(event) => onClick(event)} 
+        className={`${styles.component} ${props.selected && styles.selected} ${isDragging && styles.front}`}
+        ref={setNodeRef} 
+        style={style} 
+        {...attributes} 
+        {...listeners}
+        >
             {preview}
         </div>
     )

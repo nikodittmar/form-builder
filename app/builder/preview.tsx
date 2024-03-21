@@ -10,8 +10,7 @@ export default function Preview(props: {
     description: string
 }) {
 
-    const selectComponent = (event: React.MouseEvent<HTMLDivElement>, component: Component) => {
-        event.stopPropagation()
+    const selectComponent = (component: Component) => {
         if (props.selectedId === component.id) {
             props.setSelectedId(null)
         } else {
@@ -42,13 +41,18 @@ export default function Preview(props: {
                     <p className={styles.drop_zone_text}>Add a component to begin.</p>
                 </div>)
                 }
+                <div>
                 {
                     props.components.map( component => (
-                        <div onClick={(event: React.MouseEvent<HTMLDivElement>) => selectComponent(event, component)} key={component.id}>
-                            <ComponentPreview component={component} selected={component.id === props.selectedId} isDragging={false}/>
-                        </div>
+                        <ComponentPreview 
+                        onClick={() => selectComponent(component)} 
+                        component={component} 
+                        selected={component.id === props.selectedId} 
+                        key={component.id}
+                        />
                     ))
                 }
+                </div>
                 <div className={styles.submit_container}>
                     <div className="btn btn-primary">Submit</div>
                 </div>
