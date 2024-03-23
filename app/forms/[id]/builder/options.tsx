@@ -1,5 +1,5 @@
 import { DndContext, closestCenter } from '@dnd-kit/core'
-import Component, { Choice } from '../component'
+import Component, { Choice } from '../../../component'
 import styles from './options.module.css'
 import { restrictToParentElement, restrictToVerticalAxis } from '@dnd-kit/modifiers'
 import { SortableContext, arrayMove, useSortable, verticalListSortingStrategy } from '@dnd-kit/sortable'

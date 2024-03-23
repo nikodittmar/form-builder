@@ -4,7 +4,7 @@ import { IconContext } from 'react-icons'
 import styles from './component-picker.module.css'
 import { MdOutlineShortText, MdOutlineEmail, MdOutlinePhone, MdOutlineSubject, MdOutline123, MdOutlineCheckBox, MdOutlineRadioButtonChecked } from 'react-icons/md'
 import Component, { Checkboxes, EmailAddress, NumberPicker, PhoneNumber, RadioButtons, TextArea, TextField } from '@/app/component'
-import { ComponentType } from '../component'
+import { ComponentType } from '../../../component'
 
 export default function ComponentPicker(props: { 
     components: Component[],

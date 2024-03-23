@@ -49,7 +49,7 @@ export default function Page() {
 
     return (
     <div className={styles.container}>
-        <BuilderNav />
+        <BuilderNav components={components} />
         <div className={styles.builder}>
             <DndContext
             onDragStart={handleDragStart}

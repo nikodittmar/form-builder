@@ -1,4 +1,4 @@
-import Component, { Checkboxes, ComponentType, EmailAddress, NumberPicker, PhoneNumber, RadioButtons, TextArea, TextField } from "../component"
+import Component, { Checkboxes, ComponentType, EmailAddress, NumberPicker, PhoneNumber, RadioButtons, TextArea, TextField } from "../../../component"
 import styles from "./component-preview.module.css"
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";

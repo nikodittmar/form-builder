@@ -12,17 +12,21 @@ async function getUser() {
         return undefined
     }
 
-    const response = await fetch ("http://localhost:3001/api/v1" + "/auth/account", {
-        method: "GET",
-        headers: {
-            "Authorization": `Bearer ${jwt?.value}`,
-            "Content-Type": "application/json"
-        }
-    })
+    try {
+        const response = await fetch ("http://localhost:3001/api/v1" + "/auth/account", {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${jwt?.value}`,
+                "Content-Type": "application/json"
+            }
+        })
 
-    if (response.ok) {
-        return response.json()
-    } else {
+        if (response.ok) {
+            return response.json()
+        } else {
+            return undefined
+        }
+    } catch {
         return undefined
     }
 }

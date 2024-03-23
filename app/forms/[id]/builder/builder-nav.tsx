@@ -1,7 +1,12 @@
 'use client'
+import Component from '@/app/component'
 import styles from './builder-nav.module.css'
 
-export default function BuilderNav() {
+export default function BuilderNav(props: { components: Component[]  }) {
+    const save = () => {
+        console.log(JSON.stringify(props.components))
+    }
+
     return (
         <div className={styles.nav}>
             <div className={styles.brand}>
@@ -12,7 +17,7 @@ export default function BuilderNav() {
             </div>
             <div className={styles.actions}>
             <p className={styles.saved_status}>All Changes Saved</p>
-                <button className={`btn btn-primary ${styles.finish_button}`}>Finish</button>
+                <button className={`btn btn-primary ${styles.finish_button}`} onClick={save}>Finish</button>
             </div>
         </div>
     )
