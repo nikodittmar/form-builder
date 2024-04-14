@@ -26,8 +26,6 @@ export async function login(prevState: any, formData: FormData) {
                 maxAge: 60 * 60 * 24 * 7, // One week
                 path: '/',
             })
-            
-            redirect('/account')
         } else {
             if (response.status == 401) {
                 return {
@@ -39,9 +37,12 @@ export async function login(prevState: any, formData: FormData) {
                 }
             }
         }
-    } catch {
+    } catch (error) {
+        console.log(error)
         return {
             message: "We ran into an unexpected error, please try again later."
         }
     } 
+
+    redirect('/forms')
 }

@@ -30,8 +30,6 @@ export async function signup(prevState: any, formData: FormData) {
                 maxAge: 60 * 60 * 24 * 7, // One week
                 path: '/',
             })
-
-            redirect('/account')
         } else {
             let body = await response.json()
             if (response.status == 422 && body.hasOwnProperty("errors") && body.errors.length > 0) {
@@ -48,5 +46,6 @@ export async function signup(prevState: any, formData: FormData) {
         return {
             message: "We ran into an unexpected error, please try again later."
         }
-    }
+    } 
+    redirect('/forms')
 }

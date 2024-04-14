@@ -31,8 +31,8 @@ async function getForm(id: string) {
     }
 }
 
-export default async function Page({ params }: { params: { id: string } }) {
-    const form = await getForm(params.id)
+export default async function Page({ params }: { params: { form_id: string } }) {
+    const form = await getForm(params.form_id)
 
     if (!form) {
         redirect('/login')
@@ -41,6 +41,8 @@ export default async function Page({ params }: { params: { id: string } }) {
     return (
     <div className="mx-auto p-2 mt-3" style={{maxWidth: 1000}}>
         <h1>{form.name}</h1>
+        <Link className="ms-auto" href={`/forms/${params.form_id}/builder`}>Edit Form</Link>
+        <p className="form-control">https://localhost:3000/forms/1</p>
     </div>
     )
 }

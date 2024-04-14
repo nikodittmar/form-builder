@@ -67,13 +67,13 @@ export class PhoneNumber extends TextComponent implements Component {
 
 export class NumberPicker extends TextComponent implements Component {
     readonly type = ComponentType.NumberPicker
-    minValue?: number
-    maxValue?: number
+    min_value?: number
+    max_value?: number
 
-    constructor(id: string = uuidv4(), name: string = 'Number Picker', required: boolean = false, helper: string = '', placeholder: string = '', minValue?: number, maxValue?: number) {
+    constructor(id: string = uuidv4(), name: string = 'Number Picker', required: boolean = false, helper: string = '', placeholder: string = '', min_value?: number, max_value?: number) {
         super(id, name, required, helper, placeholder)
-        this.minValue = minValue
-        this.maxValue = maxValue
+        this.min_value = min_value
+        this.max_value = max_value
     }
 }
 

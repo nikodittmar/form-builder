@@ -1,93 +1,50 @@
-'use client'
+import { cookies } from "next/headers"
+import { redirect } from "next/navigation"
+import FormBuilder from "./form-builder"
 
-import { useState } from 'react'
-import BuilderNav from './builder-nav'
-import ComponentPicker from './component-picker'
-import Options from './options'
-import styles from './page.module.css'
-import Preview from './preview'
-import Component from '@/app/component'
-import { DndContext, DragEndEvent, DragStartEvent, PointerSensor, closestCenter, useSensor, useSensors } from '@dnd-kit/core'
-import { SortableContext, arrayMove, verticalListSortingStrategy } from '@dnd-kit/sortable'
-import { restrictToVerticalAxis, restrictToParentElement } from '@dnd-kit/modifiers'
+async function getForm(id: string) {
+    'use server'
 
-export default function Page() {
-    const [components, setComponents] = useState<Component[]>([])
-    const [selectedId, setSelectedId] = useState<string | null>(null)
-    const [displayTitle, setDisplayTitle] = useState<string>('')
-    const [description, setDescription] = useState<string>('')
+    const cookieStore = cookies()
+    const jwt = cookieStore.get("jwt")
 
-    const handleDragStart = (event: DragStartEvent) => {
-        const {active} = event;
-        const activeIndex = components.findIndex(component => component.id === active.id)
-        if (activeIndex > -1 && activeIndex < components.length) {
-            const activeComponent = components[activeIndex]
-            if (selectedId != activeComponent.id) {
-                setSelectedId(activeComponent.id)
+    if (jwt == null) {
+        return undefined
+    }
+
+    try {
+        const response = await fetch ("http://localhost:3001/api/v1" + `/forms/${id}`, {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${jwt?.value}`,
+                "Content-Type": "application/json"
             }
-        }
-    }
-
-    const handleDragEnd = (event: DragEndEvent) => {
-        const {active, over} = event;
-        
-        if (over != null && active.id != over.id) {
-            const activeIndex = components.findIndex(component => component.id === active.id)
-            const overIndex = components.findIndex(component => component.id === over.id)
-            
-            setComponents(arrayMove(components, activeIndex, overIndex))
-        }
-    }
-
-    const sensors = useSensors(
-        useSensor(PointerSensor, {
-            activationConstraint: {
-                distance: 10,
-            },
         })
-    )
+
+        if (response.ok) {
+            return response.json()
+        } else {
+            return undefined
+        }
+    } catch {
+        return undefined
+    }
+}
+
+export default async function Page({ params }: { params: { form_id: string } }) {
+    const form = await getForm(params.form_id)
+
+    if (!form) {
+        redirect('/login')
+    }
 
     return (
-    <div className={styles.container}>
-        <BuilderNav components={components} />
-        <div className={styles.builder}>
-            <DndContext
-            onDragStart={handleDragStart}
-            onDragEnd={handleDragEnd}
-            collisionDetection={closestCenter}
-            modifiers={[restrictToVerticalAxis, restrictToParentElement]}
-            sensors={sensors}
-            autoScroll
-            >
-                <ComponentPicker 
-                components={components}
-                setComponents={setComponents}
-                setSelectedId={setSelectedId}
-                />
-                <SortableContext
-                items={components}
-                strategy={verticalListSortingStrategy}
-                >
-                    <Preview 
-                    components={components} 
-                    selectedId={selectedId} 
-                    setSelectedId={setSelectedId}
-                    displayTitle={displayTitle}
-                    description={description}
-                    />
-                </SortableContext>
-            </DndContext>
-            <Options 
-            components={components}
-            setComponents={setComponents}
-            selectedId={selectedId}
-            displayTitle={displayTitle}
-            setDisplayTitle={setDisplayTitle}
-            description={description}
-            setDescription={setDescription}
-            setSelectedId={setSelectedId}
-            />
-        </div>
-    </div>
+        <FormBuilder
+            id={params.form_id}
+            components={form.components}
+            title={form.title}
+            description={form.description}
+            name={form.name}
+        />
     )
 }

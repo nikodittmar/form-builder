@@ -2,10 +2,7 @@
 import Component from '@/app/component'
 import styles from './builder-nav.module.css'
 
-export default function BuilderNav(props: { components: Component[]  }) {
-    const save = () => {
-        console.log(JSON.stringify(props.components))
-    }
+export default function BuilderNav(props: { onFinish: () => void, saveStatus: string, name: string, setName: (newName: string) => void  }) {
 
     return (
         <div className={styles.nav}>
@@ -13,11 +10,11 @@ export default function BuilderNav(props: { components: Component[]  }) {
 
             </div>
             <div className={styles.name}>
-                <input className={`form-control ${styles.name_input}`} placeholder='Untitled Form'/>
+                <input className={`form-control ${styles.name_input}`} value={props.name} onChange={(event) => props.setName(event.target.value)} placeholder='Untitled Form'/>
             </div>
             <div className={styles.actions}>
-            <p className={styles.saved_status}>All Changes Saved</p>
-                <button className={`btn btn-primary ${styles.finish_button}`} onClick={save}>Finish</button>
+            <p className={styles.saved_status}>{props.saveStatus}</p>
+                <button className={`btn btn-primary ${styles.finish_button}`} onClick={props.onFinish}>Finish</button>
             </div>
         </div>
     )
